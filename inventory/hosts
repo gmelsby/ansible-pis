@@ -1,3 +1,3 @@
 [pis]
-pi1b.local
-pi5.local
+pi@pi1b.local ansible_ssh_user='pi'
+pi@pi5.local ansible_ssh_user='pi'

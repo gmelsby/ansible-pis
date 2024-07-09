@@ -1,0 +1,8 @@
+- name: Set authorized key
+  hosts: "*"
+  become: true
+  tasks:
+    - authorized_key:
+      user: {{ ansible_user }}
+      state: present
+      key: "{{ lookup('file', {{path_to_public_key}})}}"
