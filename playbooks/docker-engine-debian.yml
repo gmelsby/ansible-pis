@@ -1,0 +1,33 @@
+- name: Install docker-engine Debian
+  hosts: "pi5.local"
+  become: true
+  tasks:
+    - name: Install Required Apt Packages
+      apt: 
+        pkg:
+          - ca-certificates
+          - curl
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+
+    - name: Install Docker Apt Packages
+      apt: 
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
+
+
