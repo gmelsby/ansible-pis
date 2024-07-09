@@ -1,0 +1,18 @@
+- name: Lockdown sshd config
+  hosts: "*"
+  become: true
+  tasks:
+    - name: Copy over ssh config
+      copy: 
+        dest: /etc/ssh/sshd_config
+        src: sshd_config
+        owner: root
+        group: root
+        mode: 0600
+      notify: Reload SSH
+
+  handlers:
+    - name: Reload SSH
+      service:
+        name: sshd
+        state: reloaded
