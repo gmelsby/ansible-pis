@@ -1,0 +1,9 @@
+- hosts: "*"
+  tasks:
+    - name: Create ed25519 Keypair
+      openssh_keypair:
+        path: /home/{{ ansible_user }}/.ssh/id_ed25519
+        type: ed25519
+        comment: "{{ ansible_user }}@{{ ansible_hostname }}"
+  
+ 
