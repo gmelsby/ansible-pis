@@ -1,5 +1,5 @@
 - name: Install docker-engine Raspbian
-  hosts: "pi1b.local"
+  hosts: "rex.local"
   become: true
   tasks:
     - name: Install Required Apt Packages
@@ -17,7 +17,7 @@
 
     - name: Add Docker Repository
       apt_repository:
-        repo: https://download.docker.com/linux/raspbian {{ ansible_distribution_release }} stable
+        repo: deb https://download.docker.com/linux/raspbian {{ ansible_distribution_release }} stable
 
     - name: Install Docker Apt Packages
       apt: 
