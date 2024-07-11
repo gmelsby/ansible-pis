@@ -1,5 +1,5 @@
 - name: Install docker-engine Debian
-  hosts: "pi5.local"
+  hosts: "ray.local"
   become: true
   tasks:
     - name: Install Required Apt Packages
