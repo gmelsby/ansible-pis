@@ -43,6 +43,14 @@
         src: traefik.yml
         dest: "/srv/docker/traefik/traefik.yml"
         mode: 0600
+    
+    - name: touch acme.json
+      copy:
+        content: ""
+        dest: "/srv/docker/traefik/acme.json"
+        force: false
+        owner: root
+        mode: 0600
 
     - name: Start Docker container
       community.docker.docker_compose_v2:
