@@ -1,4 +1,4 @@
-- name: Require password for sudo
+- name: Traefik docker compose deploy
   hosts: "*"
   become: true
   vars_files:

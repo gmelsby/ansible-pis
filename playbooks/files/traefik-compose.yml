@@ -4,8 +4,6 @@ services:
     container_name: "traefik"
     security_opt:
       - no-new-privileges:true
-    networks:
-      - traefiknet
     ports:
       - "80:80"
       - "443:443"
@@ -31,7 +29,3 @@ services:
       - "traefik.http.routers.traefik.tls.domains[0].main=${TRAEFIK_URL}"
       - "traefik.http.routers.traefik.tls.domains[0].sans=*.${TRAEFIK_URL}"
       - "traefik.http.routers.traefik.service=api@internal"
-
-networks:
-  traefiknet: 
-    external: false

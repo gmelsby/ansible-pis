@@ -1,0 +1,38 @@
+- name: Pihole docker compose deploy
+  hosts: "*"
+  become: true
+  tasks:
+    - name: Pihole docker folder exists
+      file:
+        path: "/srv/docker/pihole"
+        state: directory
+        owner: "root"
+        group: "root"
+
+    - name: Set variable based on hostname
+      set_fact:
+        hostname: "{{ inventory_hostname_short }}"
+    
+    - debug:
+        var: hostname
+
+    - name: Pihole docker compose file exists
+      template:
+        src: pihole-compose.yml
+        dest: "/srv/docker/pihole/docker-compose.yml"
+        mode: 0600
+
+    - name: Pihole .env file exists
+      template:
+        src: pihole.env
+        dest: "/srv/docker/pihole/.env"
+        mode: 0600
+
+    - name: Start Docker container
+      community.docker.docker_compose_v2:
+        project_src: /srv/docker/pihole
+      register: output
+
+    - name: Show results
+      debug:
+        var: output
