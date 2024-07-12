@@ -1,0 +1,45 @@
+- name: Require password for sudo
+  hosts: "*"
+  become: true
+  vars_files:
+    - ../vars/traefik_vars.yml
+  tasks:
+    - name: Docker Folder exists
+      file:
+        path: "/srv/docker/traefik"
+        state: directory
+        owner: "root"
+        group: "root"
+
+    - name: Traefik docker compose file exists
+      copy:
+        src: traefik-compose.yml
+        dest: "/srv/docker/traefik/docker-compose.yml"
+        owner: root
+        group: root
+        mode: 0600
+
+    - name: Set variable based on hostname
+      set_fact:
+        hostname: "{{ inventory_hostname_short }}"
+    
+    - debug:
+        var: hostname
+
+    - name: Traefik .env file exists
+      template:
+        src: traefik.env
+        dest: "/srv/docker/traefik/.env"
+        mode: 0600
+
+    - name: Traefik .config file exists
+      template:
+        src: config.yml
+        dest: "/srv/docker/traefik/config.yml"
+        mode: 0600
+
+    - name: Traefik .traefik file exists
+      template:
+        src: traefik.yml
+        dest: "/srv/docker/traefik/traefik.yml"
+        mode: 0600
