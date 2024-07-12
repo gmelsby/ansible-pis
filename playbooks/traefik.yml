@@ -1,8 +1,6 @@
 - name: Traefik docker compose deploy
   hosts: "*"
   become: true
-  vars_files:
-    - ../vars/traefik_vars.yml
   tasks:
     - name: Docker Folder exists
       file:
@@ -30,26 +28,6 @@
       template:
         src: traefik.env
         dest: "/srv/docker/traefik/.env"
-        mode: 0600
-
-    - name: Traefik .config file exists
-      template:
-        src: config.yml
-        dest: "/srv/docker/traefik/config.yml"
-        mode: 0600
-
-    - name: Traefik .traefik file exists
-      template:
-        src: traefik.yml
-        dest: "/srv/docker/traefik/traefik.yml"
-        mode: 0600
-    
-    - name: touch acme.json
-      copy:
-        content: ""
-        dest: "/srv/docker/traefik/acme.json"
-        force: false
-        owner: root
         mode: 0600
 
     - name: Start Docker container
