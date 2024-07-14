@@ -1,0 +1,11 @@
+- name: Install vim
+  hosts: "*"
+  become: true
+  tasks:
+    - name: Install vim
+      apt: 
+        pkg:
+          -  vim
+        state: latest
+        update_cache: true
+
